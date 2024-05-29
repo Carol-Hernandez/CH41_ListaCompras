@@ -88,19 +88,17 @@ if(isValid){
     localStorage.setItem("contador", contador);
     localStorage.setItem("totalEnProductos", totalEnProductos);
     localStorage.setItem("costoTotal", costoTotal);
-
     txtNombre.value="";
     txtNumber.value="";
     txtNombre.focus();
 }//isValid
 
 
-});
+});// btnAgregar
 
 btnClear.addEventListener("click", function(event){
     event.preventDefault();
     
-
     txtNombre.value ="";
     txtNumber.value ="";
     alertValidacionesTexto.innerHTML="";
@@ -119,28 +117,31 @@ btnClear.addEventListener("click", function(event){
     localStorage.removeItem("datos");
     contadorProductos.innerText=contador;
     productosTotal.innerText=totalEnProductos;
-    precioTotal.innerText=`${costoTotal.toFixed(2)}`;
+    precioTotal.innerText=`$ ${costoTotal.toFixed(2)}`;
 }); //btn clear
 
 window.addEventListener("load", function(event){
     event.preventDefault();
-    if(this.localStorage.getItem("contador")!=null){
+    if (this.localStorage.getItem("contador")!=null){
         contador=Number(this.localStorage.getItem("contador"));
-    }//if total en productos 
-    if(this.localStorage.getItem("totalEnProductos")!=null){
+    }//if contador
+    if (this.localStorage.getItem("totalEnProductos")!=null){
         totalEnProductos=Number(this.localStorage.getItem("totalEnProductos"));
     }//if totalEnProductos
-    if(this.localStorage.getItem("costoTotal")!=null){
+    if (this.localStorage.getItem("costoTotal")!=null){
+        costoTotal=Number(this.localStorage.getItem("costoTotal"));
+    }//if costoTotal
+    if (this.localStorage.getItem("datos")!=null){
         datos = JSON.parse(this.localStorage.getItem("datos"));
         datos.forEach((r) => {
             let row = `<tr>
-    <td>${r.id}</td>
-    <td>${r.nombre}</td>
-    <td>${r.cantidad}</td>
-    <td>${r.precio}</td>
-    </tr>`;
-    cuerpoTabla.insertAdjacentElement("beforeend", row);
-        });
+            <td>${r.id}</td>
+            <td>${r.nombre}</td>
+            <td>${r.cantidad}</td>
+            <td>${r.precio}</td>
+        </tr>`;
+            cuerpoTabla.insertAdjacentHTML("beforeend", row);
+        });   
     }//if datos
 
     contadorProductos.innerText=contador;
